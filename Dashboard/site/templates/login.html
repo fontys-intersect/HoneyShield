@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login Page</title>
+    <!-- Add Bootstrap CSS CDN link -->
+    <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/login.style.css">
+</head>
+<body>
+    <section class="h-100 gradient-form" style="background-color: #eee;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-10">
+                    <div class="card rounded-3 text-black">
+                        <div class="row g-0">
+                            <div class="col-lg-6">
+                                <div class="card-body p-md-5 mx-md-4">
+                                    <div class="text-center">
+                                        <img src="/static/logo.png" style="width: 185px;" alt="HoneyShield Industrial">
+                                    </div>
+                                    {% if error  %}
+                                    <div class="alert alert-danger col-sm-12" role="alert">
+                                      {{ error }}
+                                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    {% endif %}                      
+                                    <form action="/login" method="POST">
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="username">Username</label>
+                                            <input type="text" name="username" class="form-control"
+                                                placeholder="username" />
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <label class="form-label" for="password">Password</label>
+                                            <input type="password" name="password" class="form-control"
+                                                placeholder="password" />
+                                        </div>
+                                        <div class="text-center pt-1 mb-5 pb-1">
+                                            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                                                type="submit">Log in</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                    <h3 class="mb-4">We are more than just a dashboard</h3>
+                                    <p class="medium mb-0">The dashboard provides valuable insights into attackers,
+                                        including their origin, specific attack types, duration of attacks, and the
+                                        protocols they employ. By combining these findings, a seriousness score is
+                                        generated to gauge the severity of a particular attacker</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Add Bootstrap JS CDN link -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

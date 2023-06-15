@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>Settings</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.png" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+  <style>
+    .tab-pane {
+      padding: 20px;
+    }
+
+    .form-group.row {
+      margin-bottom: 20px;
+    }
+
+    .form-group.row label {
+      font-weight: bold;
+    }
+
+    .nav-tabs .nav-link {
+      background-color: #ddd;
+      color: #565656;
+      margin-top: 20px;
+      margin-right: 2px;
+    }
+
+    .nav-tabs .nav-link.active {
+      background-color: #fdc402;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .grid-header {
+      background: linear-gradient(#f9b006, #fbba04, #fdc402, #ffcf00) no-repeat center center;
+      background-size: cover;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .grid-header .col-xs-7 {
+      width: 100%;
+    }
+
+    .banner-title {
+      font-size: 50px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+
+    .banner-description {
+      font-size: 18px;
+      color: #fff;
+    }
+
+    .navbar {
+      margin-bottom: 20px;
+    }
+
+    .btn.btn-secondary.btn {
+      margin-left: 1px;
+    }
+
+    .btn-primary {
+      background-color: #f9b006;
+    }
+
+    .btn-primary:hover {
+      background: #ffcf00;
+      border-color: #f9b006;
+    }
+
+    .btn-primary.focus,
+    .btn-primary:focus {
+      box-shadow: none;
+      outline: none;
+    }
+
+    .alert {
+      margin-bottom: 20px;
+    }
+
+    .container-fluid {
+      margin-bottom: 20px;
+    }
+
+    .border {
+      border: 1px solid #ddd;
+    }
+
+    .form-control {
+      width: 15%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="" />
+      HoneyShield Industrial
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="settings">Settings</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a href="logout" class="btn btn-danger btn" role="button">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="container-fluid">
+    <form action="#" method="post">
+      <div class="row m-3">
+        {% if message %}
+        <div class="alert alert-success col-sm-12" role="alert">
+          {{ message }}{{time}}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %} {% if error %}
+        <div class="alert alert-danger col-sm-12" role="alert">
+          {{ error }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        {% endif %}
+      </div>
+      <div class="grid-header">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <h1 class="display-3 text-white banner-title">
+                Settings
+              </h1>
+              <p class="text-muted banner-description">
+                Below, you can adjust the weighting factors used to calculate
+                the seriousness score
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#global-settings">Global</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#category-settings">Category</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#protocol-settings">Protocol</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#iprep-settings">IP Reputation</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#protocol-weights">Protocol weights</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#duration-settings">Duration</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="global-settings">
+          <h3>Global Settings</h3>
+          <p class="text-muted banner-description">
+            The recalculate IP adress can be filled in when an IP reputation
+            expires and can be recalculated. The minutes between attacks
+            indicates how many minutes must elapse between attacks before it
+            is no longer considered an attack. The score threshold settings
+            can be used to determine how often the seriousness score is
+            calculated, in minutes. have the flexibility to adjust these
+            settings accordingly.
+          </p>
+          <div class="form-group row">
+            <label for="global-recalculate" class="col-sm-auto col-form-label">Threshold for recalculating the seriousness score</label>
+            <div class="col-sm-12 my-2">
+              <div class="input-group w-25">
+                <input type="number" name="global-recalculate" class="form-control" id="global-recalculate" min="0"
+                  max="10" value="{{ globals['recalculate'] }}" oninput="validateInput(this)" />
+                <div class="input-group-append">
+                  <span class="input-group-text">second(s)</span>
+                </div>
+              </div>
+            </div>
+            <label for="global-minutes" class="col-sm-auto col-form-label">Threshold between calculating attack duration</label>
+            <div class="col-sm-12 my-2">
+              <div class="input-group w-25">
+                <input type="number" name="global-minutes" class="form-control" id="global-minutes" min="0" max="10"
+                  value="{{ globals['minutes'] }}" oninput="validateInput(this)" />
+                <div class="input-group-append">
+                  <span class="input-group-text">second(s)</span>
+                </div>
+              </div>
+            </div>
+            <label for="global-threshold" class="col-sm-auto col-form-label">Threshold for IP reputation renewal</label>
+            <div class="col-sm-12 my-2">
+              <div class="input-group w-25">
+                <input type="number" name="global-threshold" class="form-control" id="global-threshold" min="0" max="10"
+                  value="{{ globals['threshold'] }}" oninput="validateInput(this)" />
+                <div class="input-group-append">
+                  <span class="input-group-text">day(s)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          $(document).ready(function () {
+            var inputElement = $('#global-minutes');
+            var valueSpan = $('#value-span');
+
+            inputElement.on('input', function () {
+              var value = inputElement.val();
+              valueSpan.text(value);
+            });
+          });
+        </script>
+
+        <div class="tab-pane fade" id="category-settings">
+          <h3>Category Settings</h3>
+          <p class="text-muted banner-description">
+            These settings enable you to effortlessly fine-tune the relative
+            importance of each category when calculating the severity score.
+            Each score is a component of a unified sum that starts at 0 and
+            ends at 1 for all categories combined. For instance, depending on
+            your unique circumstances, you have the flexibility to adjust
+            these settings accordingly.
+          </p>
+          <div class="form-group row">
+            <label for="category-duration" class="col-sm-auto col-form-label">Duration</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="category-duration" class="form-control" id="category-duration" step="0.00001"
+                min="0" max="1" value="{{ category['duration']}}"
+                onchange="this.value = parseFloat(this.value).toFixed(5);" />
+            </div>
+            <label for="category-protocols" class="col-sm-auto col-form-label">Protocols</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="category-protocols" class="form-control" id="category-protocols" step="0.00001"
+                min="0" max="1" value="{{ category['protocols'] }}"
+                onchange="this.value = parseFloat(this.value).toFixed(5);" />
+            </div>
+            <label for="category-reputation" class="col-sm-auto col-form-label">Reputation</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="category-reputation" class="form-control" id="category-reputation"
+                step="0.00001" min="0" max="1" value="{{ category['reputation'] }}"
+                onchange="this.value = parseFloat(this.value).toFixed(5);" />
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-pane fade" id="protocol-settings">
+          <h3>Protocol Settings</h3>
+          <p class="text-muted banner-description">
+            In this tab, you can fine-tune the weight assigned to each
+            protocol, ranging from 1 to 10. The weight directly impacts the
+            protocol score, enabling you to tailor its influence based on your
+            preferences.
+          </p>
+          <div class="form-group row">
+            <label for="protocol-ftp" class="col-sm-auto col-form-label">FTP</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocol-ftp" class="form-control" id="protocol-ftp" min="0" max="10"
+                value="{{ protocol['ftp'] }}" />
+            </div>
+            <label for="protocol-enip" class="col-sm-auto col-form-label">EN/IP</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocol-enip" class="form-control" id="protocol-enip" min="0" max="10"
+                value="{{ protocol['enip'] }}" />
+            </div>
+            <label for="protocol-http" class="col-sm-auto col-form-label">HTTP</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocol-http" class="form-control" id="protocol-http" min="0" max="10"
+                value="{{ protocol['http'] }}" />
+            </div>
+            <label for="protocol-snmp" class="col-sm-auto col-form-label">SNMP</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocol-snmp" class="form-control" id="protocol-snmp" min="0" max="10"
+                value="{{ protocol['snmp'] }}" />
+            </div>
+            <label for="protocol-tftp" class="col-sm-auto col-form-label">TFTP</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocol-tftp" class="form-control" id="protocol-tftp" min="0" max="10"
+                value="{{ protocol['tftp'] }}" />
+            </div>
+            <label for="protocol-bacnet" class="col-sm-auto col-form-label">BACnet</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocol-bacnet" class="form-control" id="protocol-bacnet" min="0" max="10"
+                value="{{ protocol['bacnet'] }}" />
+            </div>
+            <label for="protocol-modbus" class="col-sm-auto col-form-label">Modbus</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocol-modbus" class="form-control" id="protocol-modbus" min="0" max="10"
+                value="{{ protocol['modbus'] }}" />
+            </div>
+            <label for="protocol-s7comm" class="col-sm-auto col-form-label">S7comm</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocol-s7comm" class="form-control" id="protocol-s7comm" min="0" max="10"
+                value="{{ protocol['s7comm'] }}" />
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="iprep-settings">
+          <h3>IP Reputation Settings</h3>
+          <p class="text-muted banner-description">
+            By leveraging IP reputation levels, you have the power to define
+            when an IP address should be assigned a different severity level.
+            To achieve this, you can effortlessly modify the scores for each
+            level (1/100) based on your specific requirements.
+          </p>
+          <div class="form-group row">
+            <label for="iprep-level1" class="col-sm-auto col-form-label">Level 1</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="iprep-level1" class="form-control" id="iprep-level1" min="0" max="100"
+                value="{{ iprep['level1'] }}" />
+            </div>
+            <label for="iprep-level2" class="col-sm-auto col-form-label">Level 2</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="iprep-level2" class="form-control" id="iprep-level2" min="0" max="100"
+                value="{{ iprep['level2'] }}" />
+            </div>
+            <label for="iprep-level3" class="col-sm-auto col-form-label">Level 3</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="iprep-level3" class="form-control" id="iprep-level3" min="0" max="100"
+                value="{{ iprep['level3'] }}" />
+            </div>
+            <label for="iprep-level4" class="col-sm-auto col-form-label">Level 4</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="iprep-level4" class="form-control" id="iprep-level4" min="0" max="100"
+                value="{{ iprep['level4'] }}" />
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="protocol-weights">
+          <h3>Protocol Weights</h3>
+          <p class="text-muted banner-description">
+            In this section, you have the ability to adjust the weight assigned to each protocol, ranging from 1 to 10
+            for each protocol. This weight directly influences the protocol score, allowing you to customize its impact
+            according to your preferences.
+          </p>
+          <div class="form-group row">
+            <label for="protocols-level1" class="col-sm-2 col-form-label">Level 1</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocols-level1" class="form-control" id="protocols-level1" min="0" max="100"
+                value="{{ protocols['level1'] }}" />
+            </div>
+            <label for="protocols-level2" class="col-sm-2 col-form-label">Level 2</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocols-level2" class="form-control" id="protocols-level2" min="0" max="100"
+                value="{{ protocols['level2'] }}" />
+            </div>
+            <label for="protocols-level3" class="col-sm-2 col-form-label">Level 3</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocols-level3" class="form-control" id="protocols-level3" min="0" max="100"
+                value="{{ protocols['level3'] }}" />
+            </div>
+            <label for="protocols-level4" class="col-sm-2 col-form-label">Level 4</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="protocols-level4" class="form-control" id="protocols-level4" min="0" max="100"
+                value="{{ protocols['level4'] }}" />
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="duration-settings">
+          <h3>Duration Settings</h3>
+          <p class="text-muted banner-description">
+            By utilizing duration levels, you have the power to determine when
+            a specific duration should be associated with a different level of
+            severity. This can be easily achieved by adjusting the scores
+            given in seconds to align with your specific requirements
+          </p>
+          <div class="form-group row">
+            <label for="duration-level1" class="col-sm-auto col-form-label">Level 1</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="duration-level1" class="form-control" id="duration-level1" min="0" max="100000"
+                value="{{ duration['level1'] }}" />
+            </div>
+            <label for="duration-level2" class="col-sm-auto col-form-label">Level 2</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="duration-level2" class="form-control" id="duration-level2" min="0" max="100000"
+                value="{{ duration['level2'] }}" />
+            </div>
+            <label for="duration-level3" class="col-sm-auto col-form-label">Level 3</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="duration-level3" class="form-control" id="duration-level3" min="0" max="100000"
+                value="{{ duration['level3'] }}" />
+            </div>
+            <label for="duration-level4" class="col-sm-auto col-form-label">Level 4</label>
+            <div class="col-sm-12 my-2">
+              <input type="number" name="duration-level4" class="form-control" id="duration-level4" min="0" max="100000"
+                value="{{ duration['level4'] }}" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="form-group row m-3">
+          <div class="col-sm-10">
+            <button type="submit" class="btn btn-warning">Save</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+version: "3"
+services:
+  database:
+    image: honeyshield-database
+    environment:
+      - MYSQL_DATABASE=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=
+    volumes:
+      - database:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: always
+  conpot:
+    image: honeyshield-conpot
+    ports:
+      - "80:80/tcp"
+      - "102:102/tcp"
+      - "502:502/tcp"
+      - "161:161/udp"
+      - "47808:47808/udp"
+      - "623:623/udp"
+      - "21:21/tcp"
+      - "69:69/udp"
+      - "44818:44818/tcp"
+    volumes:
+      - conpot-log:/home/conpot/log
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /home/conpot/log/conpot.json"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: always
+  listener:
+    image: honeyshield-listener
+    environment:
+      - MYSQL_HOST=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+      - MYSQL_DATABASE=
+      - API_KEY=
+      - PRIVATE_IPS=
+    volumes:
+      - conpot-log:/home/listener/log
+    depends_on:
+      conpot:
+        condition:
+          service_healthy
+    restart: always
+  dashboard:
+    image: honeyshield-dashboard
+    ports:
+      - "5000:5000/tcp"
+    environment:
+      - MYSQL_HOST=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
+      - MYSQL_DATABASE=
+      - APP_USER=
+      - APP_PASS=
+      - APP_PORT=5000
+      - APP_SSL=
+    depends_on:
+      database:
+        condition:
+          service_healthy
+      conpot:
+        condition:
+          service_healthy
+    restart: always
+volumes:
+  conpot-log:
+  database:

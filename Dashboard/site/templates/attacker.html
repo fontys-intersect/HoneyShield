@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Attacker</title>
+  <link rel="icon" type="image/x-icon" href="/static/favicon.png">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="static/style.css">
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+      <img src="/static/favicon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      HoneyShield Industrial</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="settings">Settings</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav  ml-auto">
+        <li class="nav-item">
+          <a href="logout" class="btn btn-danger btn" role="button">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 mt-5">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>AttackerId</td>
+              <td>{{ attackerId }}</td>
+            </tr>
+            {% set details_dict = details[0] %}
+            {% set attributes = [] %}
+            {% for key, value in details_dict.items() %}
+            <tr>
+              {% if value == 1 %}
+              {% set _ = attributes.append(key) %}
+              {% elif key == 'countryCode' %}
+              <td>{{ key }}</td>
+              <td>{{ value}} <img src="https://flagcdn.com/w20/{{ value|lower }}.png" width="20" alt="{{ value }}"></td>
+              {% elif key == 'reputation' %}
+              <td>{{ key|capitalize }}</td>
+              <td>{{ value }}</td>
+              {% elif value != 0 %}
+              <td>{{ key|capitalize }}</td>
+              <td>{{ value }}</td>
+              {% endif%}
+            </tr>
+            {% endfor %}
+            {% if attributes is defined and attributes[0] is defined %}
+            <tr>
+              <td>
+                Attributes
+              </td>
+              <td>
+                {% for attribute in attributes %}
+                {% if attribute == 'vpn' %}
+                <div class='badge badge-pill badge-primary m-1'>VPN</div>
+                {% elif attribute == 'bot_status' %}
+                <div class='badge badge-pill badge-secondary m-1'>BOT</div>
+                {% elif attribute == 'crawler' %}
+                <div class='badge badge-pill badge-info m-1'>CRAWLER</div>
+                {% elif attribute == 'proxy' %}
+                <div class='badge badge-pill badge-success m-1'>PROXY</div>
+                {% endif %}
+                {% endfor %}
+              </td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="col-sm-3 mt-5">
+        {{ map | safe }}
+      </div>
+      <div class="col-sm-6" id="chart-container">
+        <div class="linechart">
+          {{ linechart |safe }}
+        </div>
+      </div>
+      <div class="col-sm mt-5">
+        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Attribute" title="Search for Attribute in table">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <!-- {% for col in table.columns.values %}
+              <th scope="col">{{ col|capitalize }}</th>
+              {% endfor %} -->
+              <th scope="col" title="View the ID of the attacker">ID</th>
+              <th scope="col" title="View the ports the attacker has targeted">Dest Port</th>
+              <th scope="col" title="View the protocol the attacker has targeted">Protocol</th>
+              <th scope="col" title="View the details of the request made by the attacker">Request</th>
+              <th scope="col" title="View the response made by the server">Response</th>
+              <th scope="col" title="Timestamp of the attack">Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in table.values %}
+            <tr>
+              {% for val in row %}
+              <td>{{ val }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="static/search.js"></script>
+    <script src="static/sort2.js"></script>
+</body>
+
+</html>

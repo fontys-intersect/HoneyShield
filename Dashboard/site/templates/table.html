@@ -1,0 +1,29 @@
+
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Table</title>
+	        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+            <link rel="stylesheet" type="text/css" href="static/style.css">
+            
+        </head>
+        <body>
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+                
+    <table class="table table-striped table-hover">
+    <thead>
+        <tr>
+        <th onclick="sortTable(0)">id</th><th onclick="sortTable(1)">score</th><th onclick="sortTable(2)">attributes</th><th onclick="sortTable(6)">duration</th><th onclick="sortTable(7)">reputation</th><th onclick="sortTable(8)">countryCode</th><th onclick="sortTable(9)">city</th><th onclick="sortTable(10)">protocols</th><th onclick="sortTable(11)">iprep_score</th><th onclick="sortTable(12)">duration_score</th><th onclick="sortTable(13)">protocols_score</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td><a href='/dashboard?attackerId=40' target='_blank'>40</a></td><td class='font-weight-bold'>49<span> / 100</span></td><td><div class='d-inline-flex flex-column'><div class='badge badge-pill badge-primary m-1'>VPN</div><div class='badge badge-pill badge-secondary m-1'>BOT</div><div class='badge badge-pill badge-success m-1'>PROXY</div></div></td><td>0 days 00:26:00</td><td>100<span> / 100</span></td><td>CH <img src='https://flagcdn.com/w20/ch.png' width='20' alt='CH'></td><td>Zurich</td><td>["http"]</td><td><p> 1 3 6 10 <span class='font-weight-bold' style='font-size: 1.1rem;'>15</span></p></td><td><p> 1 3 <span class='font-weight-bold' style='font-size: 1.1rem;'>6</span> 10 15</p></td><td><p> <span class='font-weight-bold' style='font-size: 1.1rem;'>1</span> 3 6 10 15</p></td></tr><tr><td><a href='/dashboard?attackerId=271' target='_blank'>271</a></td><td class='font-weight-bold'>42<span> / 100</span></td><td><div class='d-inline-flex flex-column'><div class='badge badge-pill badge-success m-1'>PROXY</div></div></td><td>0 days 00:19:00</td><td>82<span> / 100</span></td><td>NL <img src='https://flagcdn.com/w20/nl.png' width='20' alt='NL'></td><td>Eygelshoven</td><td>["http"]</td><td><p> 1 3 6 10 <span class='font-weight-bold' style='font-size: 1.1rem;'>15</span></p></td><td><p> 1 <span class='font-weight-bold' style='font-size: 1.1rem;'>3</span> 6 10 15</p></td><td><p> <span class='font-weight-bold' style='font-size: 1.1rem;'>1</span> 3 6 10 15</p></td></tr><tr><td><a href='/dashboard?attackerId=824' target='_blank'>824</a></td><td class='font-weight-bold'>38<span> / 100</span></td><td><div class='d-inline-flex flex-column'><div class='badge badge-pill badge-secondary m-1'>BOT</div><div class='badge badge-pill badge-success m-1'>PROXY</div></div></td><td>0 days 00:01:00</td><td>100<span> / 100</span></td><td>RU <img src='https://flagcdn.com/w20/ru.png' width='20' alt='RU'></td><td>Saint Petersburg</td><td>["http"]</td><td><p> 1 3 6 10 <span class='font-weight-bold' style='font-size: 1.1rem;'>15</span></p></td><td><p> <span class='font-weight-bold' style='font-size: 1.1rem;'>1</span> 3 6 10 15</p></td><td><p> <span class='font-weight-bold' style='font-size: 1.1rem;'>1</span> 3 6 10 15</p></td></tr><tr><td><a href='/dashboard?attackerId=857' target='_blank'>857</a></td><td class='font-weight-bold'>7<span> / 100</span></td><td><div class='d-inline-flex flex-column'></div></td><td>0 days 00:01:00</td><td>0<span> / 100</span></td><td>US <img src='https://flagcdn.com/w20/us.png' width='20' alt='US'></td><td>Gorham</td><td>["http"]</td><td><p> <span class='font-weight-bold' style='font-size: 1.1rem;'>1</span> 3 6 10 15</p></td><td><p> <span class='font-weight-bold' style='font-size: 1.1rem;'>1</span> 3 6 10 15</p></td><td><p> <span class='font-weight-bold' style='font-size: 1.1rem;'>1</span> 3 6 10 15</p></td></tr>
+    </tbody>
+    </table>
+    
+            <script src="static/search.js"></script>
+            <script src="static/sort2.js"></script>
+        </body>
+        </html>
+        
