@@ -3,11 +3,11 @@
 </p>
 
 # HoneyShield Industrial
-This readme provides an overview of the HoneyShield Industrial project. The functionallities and effectivness are shown and described in this readme.
+This readme provides an overview of the HoneyShield Industrial project. The functionalities and effectiveness are shown and described in this readme.
 
 HoneyShield Industrial is a project that is part of the research group [INTERSECT](https://intersct.nl/).
 
-The focus of the HoneyShield project was investigating the use of a serioussness score in combination with a honeypot in industrial environments. 
+The focus of the HoneyShield project was investigating the use of a seriousness score in combination with a honeypot in industrial environments. 
 
 >"A honeypot is a cybersecurity technique that involves setting up a deceptive system or network to attract potential attackers. It acts as a decoy, allowing security professionals to gather information about attack techniques, patterns, and motives while safeguarding real production systems from malicious activities."
 
@@ -19,7 +19,7 @@ The HoneyShield provides detailed information on attackers. The detailed informa
 
 **Docker (compose)**
 
-Before starting with the installation of the project, Docker and Docker compose are required. Use the officiall installation guide of Docker to install the required docker instance for your environment. 
+Before starting with the installation of the project, Docker and Docker compose are required. Use the official installation guide of Docker to install the required docker instance for your environment. 
     
 >[Docker installation](https://docs.docker.com/engine/install/)  
 >[Docker compose installation](https://docs.docker.com/compose/install/)
@@ -30,23 +30,23 @@ In order to retrieve IP reputation data, an account at [IPQualityScore™](https
 ## Installation
 
 **Ports**  
-The project, specifically Conpot uses multiple ports to listen on. These ports are used to detect attacks on multiple protocols. Best practices is to port forward these ports and make sure they are accessible from the desired network. 
+The project, specifically Conpot uses multiple ports to listen on. These ports are used to detect attacks on multiple protocols. Best practice is to port forward these ports and make sure they are accessible from the desired network. 
 
 The ports used by Conpot are:
 
-- tcp/102       S7Comm
-- tcp/80        HTTP
-- tcp/44818     Ethernet IP
-- tcp/21        FTP
-- tcp/502       Modbus
-- udp/69        TFTP
-- udp/161       SNMP  
-- udp/47808     BACNet
+- TCP/102       S7Comm
+- TCP/80        HTTP
+- TCP/44818     Ethernet/IP
+- TCP/21        FTP
+- TCP/502       Modbus
+- UDP/69        TFTP
+- UDP/161       SNMP  
+- UDP/47808     BACNet
 
-Modifying these ports is not recommended as they serve as the default ports for their respective protocols. By default the dashboard is available on port 5000.
+Modifying these ports is not recommended as they serve as the default ports for their respective protocols. By default, the dashboard is available on port 5000.
 
 **Compose config**  
-The containers can be started using a Docker compose file. You use the Docker compose file example from the repository. Therefor, copy the [docker-compose.yml.example](docker-compose.yml.example) to docker-compose.yml and fill in the empty environment variables. Make sure the MYSQL variables are the same for all the containers.
+The containers can be started using a Docker compose file. You use the Docker compose file example from the repository. Therefore, copy the [docker-compose.yml.example](docker-compose.yml.example) to docker-compose.yml and fill in the empty environment variables. Make sure the MYSQL variables are the same for all the containers.
 
 *MYSQL variables*
 ```
@@ -73,10 +73,10 @@ After completing the prerequisites and the Docker compose file you can start wit
 
 Follow these steps to clone the project and build the images.
 
-1. Clone the github repositoy using the following command.  
+1. Clone the Github repository using the following command.  
 `git clone https://github.com/nielsbakkers/HoneyShield`
 
-2. After cloning the repository make sure you are in the correct directory. This should be the main directory of the repositoy. From here run the following commands:
+2. After cloning the repository make sure you are in the correct directory. This should be the main directory of the repository. From here run the following commands:
     ```
     docker build -t honeyshield-dashboard Dashboard/.
     docker build -t honeyshield-database Database/.
@@ -101,13 +101,13 @@ or
 
 based on the `APP_SSL` variable in the docker compose file. To login, use the username and password configured using the variables `APP_USER` and `APP_PASS`.
 
-![Login page](Assets\Login_page.png)
+![Login page](Assets/Login_page.png)
 
 ## **The dashboard**
 
-After a succesfull login you will be redirected to the main dashboard.  
+After a successfull login you will be redirected to the main dashboard.  
 
-![Dashboard](Assets\Dashboard.png)
+![Dashboard](Assets/Dashboard.png)
 
 **Timeframe Selection**
 
@@ -115,7 +115,7 @@ Users can change the timeframe of the results to view attacks within a specific 
 
 **Heatmap**
 
-The dashboard displays a heatmap, which visually represents the cumulative serioussness of attacks on a specific location within the selected timeframe.
+The dashboard displays a heatmap, which visually represents the cumulative seriousness of attacks on a specific location within the selected timeframe.
 
 **Attack Table**
 
@@ -135,7 +135,7 @@ The dashboard presents a table that provides detailed information about the atta
 
 **Search Bar**
 
-The dashboard includes a search bar that allows users to search for specific (key)words within the attack table. This feature enables users to quickly find and analyze specific attacks or attributes.
+The dashboard includes a search bar that allows users to search for specific (key)words within the attack table. This feature enables users to quickly find and analyse specific attacks or attributes.
 
 
 ## **Attacker details**
@@ -174,7 +174,7 @@ The table contains the following columns:
 
 The table on the attacker page also includes a dedicated search bar for filtering specific requests.
 
-![EventsTable](Assets\Attacker_Events.png)
+![EventsTable](Assets/Attacker_Events.png)
 
 
 ## **Settings**
@@ -195,10 +195,10 @@ There are three settings that are globally used. These settings are used through
 <img align="right" width="500" src="Assets/Global_settings.png">  
 
 1. The first input field is used to indicate after how many seconds the seriousness score expires and may be recalculated
-2. The second input field incicates the seconds between attacks before it will count as new attack.
+2. The second input field indicates the seconds between attacks before it will count as new attack.
 3. The third input field indicates after how many days the IP reputation may be renewed.
 
-**Catagory weights**  
+**category weights**  
 These settings allow you to effortlessly adjust the weighting of each category in the calculation of the seriousness score. In the provided image, you can observe that every category currently carries a weight of 0.33, which is equal for all categories and sums up to 1 in total. As an example, depending on your specific situation, you could modify the settings as follows:
 
 * Duration: 0,2
@@ -225,7 +225,7 @@ By making use of the IP reputation levels, you possess the capability to determi
 <img width="500" src="Assets/IpRep_settings.png"> 
 
 **Duration weights**  
-By utilizing the duration levels, you have the capability to determine when a specific duration should be attributed a different level of seriousness. This can be accomplished by simply adjusting the scores (amount of seconds attacking) per level to align with your specific requirements.
+By utilizing the duration levels, you have the capability to determine when a specific duration should be attributed a different level of seriousness. This can be accomplished by simply adjusting the scores (number of seconds attacking) per level to align with your specific requirements.
 
 <img width="500" src="Assets/Duration_settings.png"> 
 
